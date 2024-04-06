@@ -209,6 +209,10 @@ impl Scope {
         Arc::make_mut(&mut self.tags).remove(key);
     }
 
+    pub fn get_tags(&self) -> &Arc<HashMap<String, String>> {
+        &self.tags
+    }
+
     /// Sets a context for a key.
     pub fn set_context<C: Into<Context>>(&mut self, key: &str, value: C) {
         Arc::make_mut(&mut self.contexts).insert(key.to_string(), value.into());
