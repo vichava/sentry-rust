@@ -197,6 +197,10 @@ impl Scope {
         self.user = user.map(Arc::new);
     }
 
+    pub fn get_user(&self) -> Option<&Arc<User>> {
+        self.user.as_ref()
+    }
+
     /// Sets a tag to a specific value.
     pub fn set_tag<V: ToString>(&mut self, key: &str, value: V) {
         Arc::make_mut(&mut self.tags).insert(key.to_string(), value.to_string());
