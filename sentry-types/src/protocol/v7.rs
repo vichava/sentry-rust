@@ -867,7 +867,7 @@ impl fmt::Display for User {
             fields.push(format!("username: {}", username))
         }
 
-        write!(f, "User {{{}}}", fields.join(", "))
+        write!(f, "{{{}}}", fields.join(", "))
     }
 }
 
