@@ -75,7 +75,7 @@ impl fmt::Display for Scope {
         let mut fields = Vec::new();
 
         if let Some(level) = &self.level {
-            fields.push(format!("level: {}", level));
+            fields.push(format!("level: {:?}", level));
         }
 
         if let Some(fingerprint) = &self.fingerprint {
@@ -83,7 +83,7 @@ impl fmt::Display for Scope {
         }
 
         if let Some(transaction) = &self.transaction {
-            fields.push(format!("transaction: {}", transaction));
+            fields.push(format!("transaction: {:?}", transaction));
         }
 
         if !self.breadcrumbs.is_empty() {
@@ -91,7 +91,7 @@ impl fmt::Display for Scope {
         }
 
         if let Some(user) = &self.user {
-            fields.push(format!("user: {}", user));
+            fields.push(format!("user: {:?}", user));
         }
 
         if !self.extra.is_empty() {
@@ -111,11 +111,11 @@ impl fmt::Display for Scope {
         }
 
         if let Some(session) = self.session.lock().unwrap().as_ref() {
-            fields.push(format!("session: {}", session));
+            fields.push(format!("session: {:?}", session));
         }
 
         if let Some(span) = &*self.span {
-            fields.push(format!("span: {}", span));
+            fields.push(format!("span: {:?}", span));
         }
 
         if !self.attachments.is_empty() {
