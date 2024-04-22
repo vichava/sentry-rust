@@ -1,7 +1,6 @@
 use std::borrow::Cow;
 use std::collections::{HashMap, VecDeque};
 use std::fmt;
-use std::fmt::Formatter;
 use std::sync::{Arc, Mutex, PoisonError, RwLock};
 
 use crate::performance::TransactionOrSpan;
@@ -67,62 +66,6 @@ impl fmt::Debug for Scope {
             .field("span", &self.span)
             .field("attachments", &self.attachments.len())
             .finish()
-    }
-}
-
-impl fmt::Display for Scope {
-    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-        let mut fields = Vec::new();
-
-        if let Some(level) = &self.level {
-            fields.push(format!("level: {}", level));
-        }
-
-        if let Some(fingerprint) = &self.fingerprint {
-            fields.push(format!("fingerprint: {:?}", fingerprint));
-        }
-
-        if let Some(transaction) = &self.transaction {
-            fields.push(format!("transaction: {}", transaction));
-        }
-
-        if !self.breadcrumbs.is_empty() {
-            fields.push(format!("breadcrumbs: {:?}", self.breadcrumbs));
-        }
-
-        if let Some(user) = &self.user {
-            fields.push(format!("user: {}", user));
-        }
-
-        if !self.extra.is_empty() {
-            fields.push(format!("extra: {:?}", self.extra));
-        }
-
-        if !self.tags.is_empty() {
-            fields.push(format!("tags: {:?}", self.tags));
-        }
-
-        if !self.contexts.is_empty() {
-            fields.push(format!("contexts: {:?}", self.contexts));
-        }
-
-        if !self.event_processors.is_empty() {
-            fields.push(format!("event_processors: {:?}", self.event_processors));
-        }
-
-        if let Some(session) = self.session.lock().unwrap().as_ref() {
-            fields.push(format!("session: {}", session));
-        }
-
-        if let Some(span) = &*self.span {
-            fields.push(format!("span: {}", span));
-        }
-
-        if !self.attachments.is_empty() {
-            fields.push(format!("attachments: {:?}", self.attachments));
-        }
-
-        write!(f, "{}", fields.join(", "))
     }
 }
 
