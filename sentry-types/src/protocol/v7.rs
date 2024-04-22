@@ -9,6 +9,7 @@ use std::borrow::Cow;
 use std::cmp;
 use std::convert::TryFrom;
 use std::fmt;
+use std::fmt::Formatter;
 use std::iter::FromIterator;
 use std::net::{AddrParseError, IpAddr};
 use std::ops;
@@ -852,6 +853,22 @@ pub struct User {
     /// Additional arbitrary fields for forwards compatibility.
     #[serde(flatten)]
     pub other: Map<String, Value>,
+}
+
+impl fmt::Display for User {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+        let mut fields = Vec::new();
+
+        if let Some(id) = &self.id {
+            fields.push(format!("id: {}", id));
+        }
+
+        if let Some(username) = &self.username {
+            fields.push(format!("username: {}", username))
+        }
+
+        write!(f, "User {{{}}}", fields.join(", "))
+    }
 }
 
 /// Represents http request data.

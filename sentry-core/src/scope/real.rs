@@ -91,7 +91,7 @@ impl fmt::Display for Scope {
         }
 
         if let Some(user) = &self.user {
-            fields.push(format!("user: {:?}", user));
+            fields.push(format!("user: {}", user));
         }
 
         if !self.extra.is_empty() {
