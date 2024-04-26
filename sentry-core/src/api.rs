@@ -191,6 +191,8 @@ where
             if hub.is_active_and_usage_safe() {
                 hub.with_scope(scope_config, callback)
             } else {
+                let mut scope = Scope::default();
+                scope_config(&mut scope);
                 callback()
             }
         })
